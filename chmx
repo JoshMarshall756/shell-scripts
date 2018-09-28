@@ -1,0 +1,29 @@
+#!/bin/bash
+# description- give a set of files full executable commands
+# Joshua Council 20/10/17
+
+USAGE="Usage $0 {file, ...}"
+
+# check for 1 or more arguments inputted
+if [ $# -lt 1 ]
+then
+    # output proper usage of command
+    echo "No files selected"
+    echo $USAGE
+    exit 1
+else
+    # loop through every argument
+    for file in "$@"
+    do
+        # give exectuable permissions to every user group
+        chmod +x $file
+
+        # check for successful execution
+        if [ $? -eq 0 ]
+        then
+            echo "$file given executable permissions"
+        else
+            echo "ERROR: $file not given executable permissions"
+        fi
+    done
+fi

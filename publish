@@ -1,0 +1,36 @@
+#! /bin/bash
+# description- publish a file from ~/dev/scripts to ~/bin removing .bash extension
+# Joshua Council 01/11/17
+
+USAGE="Usage $0 {file, ...}"
+
+# check for some arguments
+if [ $# -gt 0 ]
+then
+    # loop through every file
+    for file in "$@"
+    do
+        # create variable for reference to file name
+        f=$file
+        # remove .bash extension from filename
+        g=${f%.bash}
+
+        # copy file to ~/bin
+        cp $f $HOME/bin
+        # rename file in ~/bin
+        mv $HOME/bin/$f $HOME/bin/$g
+
+        # check if publish was successful
+        if [ $? -eq 0 ]
+        then
+            echo "$file published successfully"
+        else
+            echo "FAILED: $file not published"
+        fi
+    done
+else
+    # output proper usage of command
+    echo "No files selected"
+    echo $USAGE
+    exit 1
+fi

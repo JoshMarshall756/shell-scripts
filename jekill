@@ -1,0 +1,16 @@
+#! /bin/bash
+
+# Finds and kills the Jekyll host process
+jekyll_id=$(pgrep -f jekyll)
+
+if [ $? -eq 0 ]; then
+    kill -9 $jekyll_id
+
+    if [ $? -eq 0 ]; then
+        echo "Jekyll killed: $jekyll_id"
+    else
+        echo "ERROR: Failed to kill Jekyll: $jekyll_id"
+    fi
+else
+    echo "ERROR: Failed to find Jekyll"
+fi
