@@ -14,11 +14,15 @@ then
         f=$file
         # remove .bash extension from filename
         g=${f%.bash}
+        # remove dev/scripts/ from filename
+        prefix="dev/scripts/"
+        oldFileName=${f#"$prefix"}
+        newFileName=${g#"$prefix"}
 
         # copy file to ~/bin
         cp $f $HOME/bin
         # rename file in ~/bin
-        mv $HOME/bin/$f $HOME/bin/$g
+        mv $HOME/bin/$oldFileName $HOME/bin/$newFileName
 
         # check if publish was successful
         if [ $? -eq 0 ]
