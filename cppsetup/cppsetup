@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# sets up my template for a vscode cpp project
+
+# usage - cppsetup projectname path
+
+filesDir=~/bin/cppsetup/files
+defaultProjectName="defaultProjectName"
+
+if [ $# -eq 2 ] 
+then
+	projectName=$1;
+	path=$2;
+
+	# create all relevant dirs
+	mkdir $path/.vscode $path/build $path/src $path/headers
+	# copy vscode .json files
+	cp -r $filesDir/*.json $path/.vscode
+	# copy the CMakeLists.txt file
+	cp -r $filesDir/cmake/* $path
+
+	# replace project name in CMakeLists.txt
+	sed -i -e "s/$defaultProjectName/$projectName/g" $path/CMakeLists.txt
+
+	# replace project name in launch.json
+	sed -i -e "s/$defaultProjectName/$projectName/g" $path/.vscode/launch.json
+else
+	echo "incorrect number of arguments" 
+fi
