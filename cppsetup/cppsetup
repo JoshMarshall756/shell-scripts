@@ -2,16 +2,19 @@
 
 # sets up my template for a vscode cpp project
 
-# usage - cppsetup projectname path
+# usage - cppsetup projectname projectSrcDir 
 
 filesDir=~/bin/cppsetup/files
 defaultProjectName="defaultProjectName"
+path="defaultPath"
+projectName="defaultProjectName"
 
 if [ $# -eq 2 ] 
 then
 	projectName=$1;
 	path=$2;
-
+	[[ -d $1 ]] || mkdir $1
+		
 	# create all relevant dirs
 	mkdir $path/.vscode $path/build $path/src $path/headers
 	# copy vscode .json files
